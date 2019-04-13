@@ -1,0 +1,11 @@
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\obj\Debug\netcoreapp2.0\Permit.csprojAssemblyReference.cache
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\obj\Debug\netcoreapp2.0\Permit.csproj.CoreCompileInputs.cache
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\obj\Debug\netcoreapp2.0\Permit.AssemblyInfoInputs.cache
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\obj\Debug\netcoreapp2.0\Permit.AssemblyInfo.cs
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\bin\Debug\netcoreapp2.0\Permit.deps.json
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\bin\Debug\netcoreapp2.0\Permit.runtimeconfig.json
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\bin\Debug\netcoreapp2.0\Permit.runtimeconfig.dev.json
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\bin\Debug\netcoreapp2.0\Permit.dll
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\bin\Debug\netcoreapp2.0\Permit.pdb
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\obj\Debug\netcoreapp2.0\Permit.dll
+C:\Users\ccamp\OneDrive\Documents\Visual Studio 2017\Projects\Permit\Permit\obj\Debug\netcoreapp2.0\Permit.pdb
