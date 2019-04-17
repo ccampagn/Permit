@@ -86,6 +86,68 @@ namespace Permit.DataBase
             db.closeconn(conn);
             return application;
         }
+        public List<Application> getapplications(int userid)
+        {
+            Db db = new Db();
+            List<Application> application = new List<Application>();
+            SqlConnection conn = openconn();
+            String sql = "SELECT ApplicationId,parksid,parks.name as parkname,StartDate,entrytrail,Entry.name as entryname,exittrail,exits.name as exitname,status,GroupSize,Tents,useraccount.UserId,Password.PasswordId,Password.Email,Password.PasswordHash,name.nameid,name.firstname,name.middlename,name.lastname,name.suffix,address.addressid,address.address1,address.address2,address.city,address.state,address.country,address.zipcode,address.phonenumber,EmergencyContract.EmergencyContractID,EmergencyContract.Email as emeremail,emer.nameid as emernameid,emer.firstname as emerfirstname,emer.middlename as emermiddlename,emer.lastname as emerlastname,emer.suffix as emersuffix,emeradd.addressid as emeraddressid,emeradd.address1 as emeraddress1,emeradd.address2 as emeraddress2,emeradd.city as emercity,emeradd.state as emerstate,emeradd.country as emercountry,emeradd.zipcode as emerzipcode,emeradd.phonenumber as emerphonenumber,creditcard.creditcardid,number FROM Applications join UserAccount on Applications.UserId = UserAccount.UserId join Password on UserAccount.PasswordId=Password.PasswordId join creditcard on creditcard.creditcardid=useraccount.creditcardid join EmergencyContract on EmergencyContract.EmergencyContractID = UserAccount.emergencycontractid join name on name.nameid=useraccount.nameid join Parks on Parks.ParkId = Applications.ParksId join address on address.addressid = Name.addressid join name as emer on emer.nameid = emergencycontract.nameid join address as emeradd on emeradd.addressid=emer.addressid join entry on applications.entrytrail = entry.entryid join entry as exits on exits.entryid=applications.exittrail where Applications.userid=@userid";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@userid", userid);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                application.Add(new Application(Convert.ToInt32(rdr["ApplicationId"]),
+                    new Park(Convert.ToInt32(rdr["parksid"]), rdr["parkname"].ToString()),
+                    Convert.ToDateTime(rdr["StartDate"]),
+                    new EntryExit(Convert.ToInt32(rdr["entrytrail"]), rdr["entryname"].ToString()),
+                    new EntryExit(Convert.ToInt32(rdr["exittrail"]), rdr["exitname"].ToString()),
+                    rdr["status"].ToString(),
+                    Convert.ToInt32(rdr["groupsize"]),
+                    Convert.ToInt32(rdr["tents"]),
+                    getnights(Convert.ToInt32(rdr["ApplicationId"])),
+                    new User(Convert.ToInt32(rdr["userid"]), new Password(Convert.ToInt32(rdr["passwordid"]), rdr["email"].ToString(), rdr["passwordhash"].ToString()),
+                    new Name(Convert.ToInt32(rdr["nameid"]), rdr["firstname"].ToString(), rdr["middlename"].ToString(), rdr["lastname"].ToString(), rdr["suffix"].ToString(),
+                    new Address(Convert.ToInt32(rdr["addressid"]), rdr["address1"].ToString(), rdr["address2"].ToString(), rdr["city"].ToString(), rdr["state"].ToString(), rdr["country"].ToString(), rdr["zipcode"].ToString(), rdr["phonenumber"].ToString())),
+                    new EmergencyContract(Convert.ToInt32(rdr["emergencycontractid"]),
+                    new Name(Convert.ToInt32(rdr["emernameid"]), rdr["emerfirstname"].ToString(), rdr["emermiddlename"].ToString(), rdr["emerlastname"].ToString(), rdr["emersuffix"].ToString(),
+                    new Address(Convert.ToInt32(rdr["emeraddressid"]), rdr["emeraddress1"].ToString(), rdr["emeraddress2"].ToString(), rdr["emercity"].ToString(), rdr["emerstate"].ToString(), rdr["emercountry"].ToString(), rdr["emerzipcode"].ToString(), rdr["emerphonenumber"].ToString())), rdr["emeremail"].ToString()), new CreditCard(Convert.ToInt32(rdr["creditcardid"]), Convert.ToInt32(rdr["number"])))));
+            }
+            rdr.Close();
+            db.closeconn(conn);
+            return application;
+        }
+        public Application getapplicationsbyid(int id)
+        {
+            Db db = new Db();
+            Application application = null;
+            SqlConnection conn = openconn();
+            String sql = "SELECT ApplicationId,parksid,parks.name as parkname,StartDate,entrytrail,Entry.name as entryname,exittrail,exits.name as exitname,status,GroupSize,Tents,useraccount.UserId,Password.PasswordId,Password.Email,Password.PasswordHash,name.nameid,name.firstname,name.middlename,name.lastname,name.suffix,address.addressid,address.address1,address.address2,address.city,address.state,address.country,address.zipcode,address.phonenumber,EmergencyContract.EmergencyContractID,EmergencyContract.Email as emeremail,emer.nameid as emernameid,emer.firstname as emerfirstname,emer.middlename as emermiddlename,emer.lastname as emerlastname,emer.suffix as emersuffix,emeradd.addressid as emeraddressid,emeradd.address1 as emeraddress1,emeradd.address2 as emeraddress2,emeradd.city as emercity,emeradd.state as emerstate,emeradd.country as emercountry,emeradd.zipcode as emerzipcode,emeradd.phonenumber as emerphonenumber,creditcard.creditcardid,number FROM Applications join UserAccount on Applications.UserId = UserAccount.UserId join Password on UserAccount.PasswordId=Password.PasswordId join creditcard on creditcard.creditcardid=useraccount.creditcardid join EmergencyContract on EmergencyContract.EmergencyContractID = UserAccount.emergencycontractid join name on name.nameid=useraccount.nameid join Parks on Parks.ParkId = Applications.ParksId join address on address.addressid = Name.addressid join name as emer on emer.nameid = emergencycontract.nameid join address as emeradd on emeradd.addressid=emer.addressid join entry on applications.entrytrail = entry.entryid join entry as exits on exits.entryid=applications.exittrail where Applications.applicationid=@applicationid";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@applicationid", id);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                application=new Application(Convert.ToInt32(rdr["ApplicationId"]),
+                    new Park(Convert.ToInt32(rdr["parksid"]), rdr["parkname"].ToString()),
+                    Convert.ToDateTime(rdr["StartDate"]),
+                    new EntryExit(Convert.ToInt32(rdr["entrytrail"]), rdr["entryname"].ToString()),
+                    new EntryExit(Convert.ToInt32(rdr["exittrail"]), rdr["exitname"].ToString()),
+                    rdr["status"].ToString(),
+                    Convert.ToInt32(rdr["groupsize"]),
+                    Convert.ToInt32(rdr["tents"]),
+                    getnights(Convert.ToInt32(rdr["ApplicationId"])),
+                    new User(Convert.ToInt32(rdr["userid"]), new Password(Convert.ToInt32(rdr["passwordid"]), rdr["email"].ToString(), rdr["passwordhash"].ToString()),
+                    new Name(Convert.ToInt32(rdr["nameid"]), rdr["firstname"].ToString(), rdr["middlename"].ToString(), rdr["lastname"].ToString(), rdr["suffix"].ToString(),
+                    new Address(Convert.ToInt32(rdr["addressid"]), rdr["address1"].ToString(), rdr["address2"].ToString(), rdr["city"].ToString(), rdr["state"].ToString(), rdr["country"].ToString(), rdr["zipcode"].ToString(), rdr["phonenumber"].ToString())),
+                    new EmergencyContract(Convert.ToInt32(rdr["emergencycontractid"]),
+                    new Name(Convert.ToInt32(rdr["emernameid"]), rdr["emerfirstname"].ToString(), rdr["emermiddlename"].ToString(), rdr["emerlastname"].ToString(), rdr["emersuffix"].ToString(),
+                    new Address(Convert.ToInt32(rdr["emeraddressid"]), rdr["emeraddress1"].ToString(), rdr["emeraddress2"].ToString(), rdr["emercity"].ToString(), rdr["emerstate"].ToString(), rdr["emercountry"].ToString(), rdr["emerzipcode"].ToString(), rdr["emerphonenumber"].ToString())), rdr["emeremail"].ToString()), new CreditCard(Convert.ToInt32(rdr["creditcardid"]), Convert.ToInt32(rdr["number"]))));
+            }
+            rdr.Close();
+            db.closeconn(conn);
+            return application;
+        }
         public List<Night> getnights(int applicationid)
         {
             Db db = new Db();

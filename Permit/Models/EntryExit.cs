@@ -7,8 +7,8 @@ namespace Permit.Models
 {
     public class EntryExit
     {
-        int EntryExitId { get; set; }
-        string Name { get; set; }
+        public int EntryExitId { get; set; }
+        public string Name { get; set; }
         public EntryExit(int EntryExitId, string Name)
         {
             this.EntryExitId = EntryExitId;

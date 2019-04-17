@@ -17,14 +17,8 @@ namespace Permit.Controllers
         public IActionResult Index()
         {
             Db db = new Db();
-            return View();
-        }
-
-
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            List<Application> app=db.getapplications(1);
+            return View(app);
         }
     }
 }

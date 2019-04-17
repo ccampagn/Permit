@@ -1,0 +1,37 @@
+﻿@model Permit.Models.Application
+
+<table>
+    <tr>
+        <td>Park</td>
+        <td>Start Date</td>
+        <td>Entry Trail</td>
+        <td>Exit Trail</td>
+        <td>Status</td>
+        <td>Group Size</td>
+        <td>Night</td>
+    </tr>
+    <tr>
+        <td>@Model.Park.Name</td>
+        <td>@Model.StartDate.Date.ToShortDateString()</td>
+        <td>@Model.EntryTrail.Name</td>
+        <td>@Model.ExitTrail.Name</td>
+        <td>@Model.Status</td>
+        <td>@Model.GroupSize</td>
+        <td>@Model.Nights.Count</td>
+        </tr>
+    }
+</table>
+
+<table>
+    <tr>
+        <td>Date</td>
+        <td>Campsite</td>
+    </tr>
+    @foreach(var item in Model.Nights)
+    {
+    <tr>
+        <td>@item.Date.ToShortDateString()</td>
+        <td>@item.Campsite.Name</td>
+    </tr>
+    }
+</table>
